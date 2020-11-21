@@ -1,7 +1,7 @@
 Robot = function(x, y, z) {
 
   // create head, neck, and, torso
-  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'blue')
+  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'orange')
   var geometry = fromhelper[0];
   var material = fromhelper[1];
   var bones = fromhelper[2];
@@ -23,7 +23,7 @@ Robot = function(x, y, z) {
 
 
   // create left arm
-  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'blue')
+  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'black')
   var geometry = fromhelper[0];
   var material = fromhelper[1];
   var bones = fromhelper[2];
@@ -49,7 +49,7 @@ Robot = function(x, y, z) {
 
 
   // create right arm
-  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'blue')
+  var fromhelper = HELPER.cylinderSkeletonMesh(3, 5, 'black')
   var geometry = fromhelper[0];
   var material = fromhelper[1];
   var bones = fromhelper[2];
@@ -171,23 +171,19 @@ Robot.prototype.walk = function() {
 
 Robot.prototype.onStep = function() {
 
+  for( var i in all_robots ) {
 
-  for( var a in all_robots ) {
-
-    a = all_robots[a];
-
-    if( a.root.position.equals( this.root.position )) {
-      continue;
-    }
-
-    if( a.root.position.distanceTo( this.root.position ) < 10 ) {
+      // checking itself to overcome rotating around itself and also rotating before collision with others
+    if( this != all_robots[i] && all_robots[i].root.position.distanceTo( this.root.position ) < 50 ) {
       this.root.rotateY( Math.PI/2 );
     }
   }
 
-  if( this.root.position.z > 200 || this.root.position.z < -200 ) {
+ 
+
+  if( this.root.position.z > 490 || this.root.position.z < -490 ) {
     this.root.rotateY( Math.PI/2 ); // rotate 180 DEGREES
-  } else if( this.root.position.x > 200 || this.root.position.x < -200  ) {
+  } else if( this.root.position.x > 490 || this.root.position.x < -490  ) {
     this.root.rotateY( Math.PI/2 );
   }
   this.root.translateZ(10);
